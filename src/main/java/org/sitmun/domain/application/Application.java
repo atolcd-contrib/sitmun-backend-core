@@ -22,6 +22,7 @@ import org.sitmun.infrastructure.persistence.type.codelist.CodeList;
 import org.sitmun.infrastructure.persistence.type.i18n.I18n;
 import org.sitmun.infrastructure.persistence.type.list.StringListAttributeConverter;
 import org.sitmun.infrastructure.persistence.type.map.HashMapConverter;
+import org.sitmun.infrastructure.persistence.type.map.Parameters;
 import org.sitmun.infrastructure.persistence.type.srs.Srs;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -218,21 +219,10 @@ public class Application {
    * Header params for maps sections.
    * @param obj
    */
-  @Column(name = "APP_HEADERPARAMS", length = Length.LONG32)
+  @Column(name = "APP_HEADERPARAMS")
   @Convert(converter = HashMapConverter.class)
-  @JsonView(ClientConfigurationViews.ApplicationTerritory.class)
-  @Builder.Default
-  private Map<String, Object> headerParams = of(
-    "headerLeftSection", of(
-        "logoSitmun", visible()
-    ),
-    "headerRightSection", of(
-        "switchApplication", visible(),
-        "homeMenu", visible(),
-        "switchLanguage", visible(),
-        "profileButton", visible(),
-        "logoutButton", visible()
-    ));
+  @Parameters
+  private Map<String, Object> headerParams;
 
   @Override
   public boolean equals(Object obj) {
