@@ -249,3 +249,11 @@ sitmun:
         - code-list-name: editTask.fieldType
           value: listbox
           description: "ListBox"
+  recover-password:
+    front:
+      url: "http://localhost:9080"
+      path: "/auth/forgot-password/"
+    mail:
+      from: "sitmun-test@localhost"
+    jwt:
+      token-recovery-password-validity-in-milliseconds: 3600000

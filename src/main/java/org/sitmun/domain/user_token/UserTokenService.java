@@ -19,8 +19,8 @@ public class UserTokenService {
   public UserToken saveUserToken(UserTokenDTO userTokenDTO) {
     UserToken userToken =
         UserToken.builder()
-            .userMail(userTokenDTO.getUserMail())
             .tokenId(userTokenDTO.getTokenId())
+            .userID(userTokenDTO.getUserID())
             .expireAt(userTokenDTO.getExpireAt())
             .build();
 
@@ -36,9 +36,9 @@ public class UserTokenService {
     this.userTokenRepository.deleteById(userTokenDTO.getId());
   }
 
-  public UserTokenDTO updateUserToken(String userMail, String token, boolean newIsActive) {
+  public UserTokenDTO updateUserToken(int userId, String token) {
     Optional<UserToken> userTokenOptional =
-        this.userTokenRepository.findByUserMailAndTokenId(userMail, token);
+        this.userTokenRepository.findByUserIDAndTokenId(userId, token);
     if (userTokenOptional.isEmpty()) {
       return null;
     }
@@ -56,7 +56,7 @@ public class UserTokenService {
 
     return UserTokenDTO.builder()
         .id(userToken.getId())
-        .userMail(userToken.getUserMail())
+        .userID(userToken.getUserID())
         .tokenId(userToken.getTokenId())
         .expireAt(userToken.getExpireAt())
         .build();

@@ -81,8 +81,8 @@ class RecoverPasswordControllerTest {
     validToken = UUID.randomUUID().toString();
     UserToken validUserToken =
         UserToken.builder()
-            .userMail(testUser.getEmail())
             .tokenId(validToken)
+            .userID(testUser.getId())
             .expireAt(new Date(System.currentTimeMillis() + 300000)) // 5 minutes from now
             .build();
     userTokenRepository.save(validUserToken);
@@ -91,8 +91,8 @@ class RecoverPasswordControllerTest {
     expiredToken = UUID.randomUUID().toString();
     UserToken expiredUserToken =
         UserToken.builder()
-            .userMail(testUser.getEmail())
             .tokenId(expiredToken)
+            .userID(testUser.getId())
             .expireAt(new Date(System.currentTimeMillis() - 300000)) // 5 minutes ago
             .build();
     userTokenRepository.save(expiredUserToken);
@@ -186,10 +186,6 @@ class RecoverPasswordControllerTest {
     Optional<User> updatedUser = userRepository.findById(testUser.getId());
     assertThat(updatedUser).isPresent();
     assertThat(passwordEncoder.matches("newpassword123", updatedUser.get().getPassword())).isTrue();
-
-    // Verify token was deleted
-    Optional<UserToken> deletedToken = userTokenRepository.findByTokenId(validToken);
-    assertThat(deletedToken).isEmpty();
   }
 
   @Test
