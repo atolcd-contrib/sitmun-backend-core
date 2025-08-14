@@ -46,6 +46,7 @@ sitmun:
   recover-password:
     front:
       url: "http://localhost:9080"
+      path: "/auth/forgot-password/"
     mail:
       from: "sitmun-test@localhost"
     jwt:

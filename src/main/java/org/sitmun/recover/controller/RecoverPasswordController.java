@@ -45,6 +45,9 @@ public class RecoverPasswordController {
   @Value("${sitmun.recover-password.front.url}")
   private String frontUrl;
 
+  @Value("${sitmun.recover-password.front.path}")
+  private String frontPathUrl;
+
   @Value("${sitmun.recover-password.mail.from}")
   private String from;
 
@@ -82,26 +85,28 @@ public class RecoverPasswordController {
 
     try {
       String login = body.getLogin();
-      boolean isLoginExist =
-          this.userRepository.findByEmail(login).isPresent(); // Is user mail exist
-      if (!isLoginExist) { // Otherwise, get user where login is nickname then get mail
-        var optionalUser = this.userRepository.findByUsername(login);
-        isLoginExist = optionalUser.isPresent();
+      Optional<User> optionalUser = this.userRepository.findByEmail(login); // Does user mail exist
+      User user = null;
+      if (!optionalUser.isPresent()) { // Otherwise, get user where login is nickname then get mail
+        optionalUser = this.userRepository.findByUsername(login);
 
-        if (isLoginExist) {
-          User user = optionalUser.get();
+        if (optionalUser.isPresent()) {
+          user = optionalUser.get();
           login = user.getEmail();
         }
+      } else {
+        user = optionalUser.get();
       }
 
       String token;
-      if (isLoginExist && login != null && !login.trim().isEmpty()) {
+      if (user != null && login != null && !login.trim().isEmpty()) {
         token = this.generateRandomToken();
         long currentTimeMillis = new Date().getTime();
         UserTokenDTO userTokenDTO =
-            new UserTokenDTO(null, login, token, new Date(currentTimeMillis + recoveryValidity));
+            new UserTokenDTO(
+                null, user.getId(), token, new Date(currentTimeMillis + recoveryValidity));
         userTokenService.saveUserToken(userTokenDTO);
-        String resetUrl = frontUrl + "/auth/forgot-password/" + token;
+        String resetUrl = frontUrl + frontPathUrl + token;
         EmailForgotPassword email = mailService.buildForgotPasswordEmail(resetUrl);
         mailService.sendEmail(from, login, email);
       }
@@ -135,8 +140,7 @@ public class RecoverPasswordController {
       }
 
       // Get user
-      String login = userToken.getUserMail();
-      Optional<User> storedUser = this.userRepository.findByEmail(login);
+      Optional<User> storedUser = this.userRepository.findById(userToken.getUserID());
 
       // Login not existing
       if (storedUser.isEmpty()) {
@@ -163,9 +167,6 @@ public class RecoverPasswordController {
       this.publisher.publishEvent(new BeforeSaveEvent(user));
       user = this.userRepository.save(user);
       this.publisher.publishEvent(new AfterSaveEvent(user));
-
-      // Delete userToken
-      userTokenService.deleteUserToken(userToken);
 
       return ResponseEntity.status(HttpStatus.OK).body("Password reset successfully");
     } catch (Exception e) {

@@ -26,8 +26,8 @@ public class UserToken {
   @Column(name = "USER_TOKEN_ID")
   private Integer id;
 
-  @Column(name = "USER_MAIL", nullable = false)
-  private String userMail;
+  @Column(name = "USER_ID", nullable = false)
+  private Integer userID;
 
   @Column(name = "TOKEN_ID", nullable = false)
   private String tokenId;
