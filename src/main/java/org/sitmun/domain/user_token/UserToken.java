@@ -29,9 +29,15 @@ public class UserToken {
   @Column(name = "USER_ID", nullable = false)
   private Integer userID;
 
-  @Column(name = "TOKEN_ID", nullable = false)
-  private String tokenId;
+  @Column(name = "CODE_OTP", nullable = false)
+  private String codeOTP;
 
-  @Column(name = "EXPIRE_AT", updatable = false)
+  @Column(name = "EXPIRE_AT", nullable = false)
   private Date expireAt;
+
+  @Column(name = "ATTEMPT_COUNTER", nullable = false)
+  private int attemptCounter;
+
+  @Column(name = "ACTIVE", nullable = true)
+  private boolean active;
 }

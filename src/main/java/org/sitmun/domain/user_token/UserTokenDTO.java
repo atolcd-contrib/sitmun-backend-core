@@ -13,9 +13,12 @@ public class UserTokenDTO {
 
   private Integer userID;
 
-  /** Token for reset password */
-  private String tokenId;
+  private String codeOTP;
 
   /** Token expiration date */
   private Date expireAt;
+
+  private int attemptCounter;
+
+  private boolean active;
 }
