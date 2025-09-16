@@ -513,6 +513,21 @@ databaseChangeLog:
               - column:
                   name: APP_LOGO
                   type: STRING
+              - column:
+                  name: APP_PRIVATE
+                  type: BOOLEAN
+              - column:
+                  name: APP_UNAVAILABLE
+                  type: BOOLEAN
+              - column:
+                  name: APP_MAINTENANCE_INFORMATION
+                  type: STRING
+              - column:
+                  name: APP_DESCRIPTION
+                  type: STRING
+              - column:
+                  name: APP_CREATORID
+                  type: NUMERIC
         - sql:
             sql: INSERT INTO STM_SEQUENCE(SEQ_NAME, SEQ_COUNT) VALUES ('APP_ID', 6);
         - loadData:
