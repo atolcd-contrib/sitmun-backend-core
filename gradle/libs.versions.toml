@@ -92,7 +92,6 @@ jakarta-persistence-api = { module = "jakarta.persistence:jakarta.persistence-ap
 
 # Rate limiting
 bucket4j-core = { module = "com.bucket4j:bucket4j-core", version.ref = "bucket4j" }
-bucket4j-redis = { module = "com.bucket4j:bucket4j-redis", version.ref = "bucket4j" }
 
 [plugins]
 spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
