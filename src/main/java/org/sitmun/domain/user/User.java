@@ -109,7 +109,7 @@ public class User {
   @Builder.Default
   private Set<UserConfiguration> permissions = new HashSet<>();
 
-  @Column(name = "lastPasswordChange")
+  @Column(name = "use_lastPasswordChange")
   private Date lastPasswordChange;
 
   @PostLoad
