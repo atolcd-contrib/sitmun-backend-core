@@ -100,15 +100,7 @@ dependencies {
   implementation libs.spring.boot.starter.mail
 
   // Rate limiting
-  implementation 'com.bucket4j:bucket4j-core:8.10.1'
-  implementation 'com.giffing.bucket4j.spring.boot.starter:bucket4j-spring-boot-starter:0.8.0'
-  implementation 'org.springframework.boot:spring-boot-starter-cache'
-  implementation 'javax.cache:cache-api'
-  implementation 'com.github.ben-manes.caffeine:caffeine:2.8.2'
-  implementation 'com.github.ben-manes.caffeine:jcache:2.8.2'
-
-  implementation 'io.github.resilience4j:resilience4j-spring-boot3:2.0.2'
-
+  implementation libs.bucket4j.core
 
   // Core annotation processing
   annotationProcessor libs.jakarta.annotation.api
