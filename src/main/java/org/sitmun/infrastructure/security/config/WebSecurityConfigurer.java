@@ -4,7 +4,6 @@ import static org.sitmun.infrastructure.security.core.SecurityConstants.*;
 import static org.sitmun.infrastructure.security.core.SecurityRole.*;
 
 import java.util.List;
-
 import org.sitmun.domain.user.UserRepository;
 import org.sitmun.infrastructure.security.core.SecurityEntryPoint;
 import org.sitmun.infrastructure.security.core.userdetails.UserDetailsServiceImplementation;

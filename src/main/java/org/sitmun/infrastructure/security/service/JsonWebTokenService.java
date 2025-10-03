@@ -32,11 +32,12 @@ public class JsonWebTokenService {
   public String generateToken(String username, Date date, Date lastPasswordChange) {
 
     long currentTimeMillis = date.getTime();
-    JwtBuilder builder = Jwts.builder()
-      .subject(username)
-      .issuedAt(new Date(currentTimeMillis))
-      .expiration(new Date(currentTimeMillis + validity))
-      .signWith(key);
+    JwtBuilder builder =
+        Jwts.builder()
+            .subject(username)
+            .issuedAt(new Date(currentTimeMillis))
+            .expiration(new Date(currentTimeMillis + validity))
+            .signWith(key);
 
     if (lastPasswordChange != null) {
       builder.claim(LAST_PASSWORD_CHANGE, lastPasswordChange.toInstant().toEpochMilli());
@@ -68,9 +69,8 @@ public class JsonWebTokenService {
     if (lastPasswordChange == null) return true;
     Long tokenTimestamp = getClaimFromToken(token, c -> c.get(LAST_PASSWORD_CHANGE, Long.class));
     return tokenTimestamp != null
-      && tokenTimestamp.equals(lastPasswordChange.toInstant().toEpochMilli());
+        && tokenTimestamp.equals(lastPasswordChange.toInstant().toEpochMilli());
   }
-
 
   private Boolean isTokenExpired(String token) {
     final Date expiration = getExpirationDateFromToken(token);

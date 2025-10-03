@@ -42,13 +42,13 @@ class LanguageControllerTest {
     when(languageRepository.findAll()).thenReturn(Arrays.asList(lang1, lang2));
 
     mvc.perform(get("/api/languages"))
-      .andExpect(status().isOk())
-      .andExpect(jsonPath("$[0].id").value(1))
-      .andExpect(jsonPath("$[0].name").value("English"))
-      .andExpect(jsonPath("$[0].shortName").value("en"))
-      .andExpect(jsonPath("$[1].id").value(2))
-      .andExpect(jsonPath("$[1].name").value("Espagnol"))
-      .andExpect(jsonPath("$[1].shortName").value("en"));
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$[0].id").value(1))
+        .andExpect(jsonPath("$[0].name").value("English"))
+        .andExpect(jsonPath("$[0].shortName").value("en"))
+        .andExpect(jsonPath("$[1].id").value(2))
+        .andExpect(jsonPath("$[1].name").value("Espagnol"))
+        .andExpect(jsonPath("$[1].shortName").value("en"));
   }
 
   @Test
@@ -56,7 +56,6 @@ class LanguageControllerTest {
   void retrieveNoLanguages() throws Exception {
     when(languageRepository.findAll()).thenReturn(Collections.emptyList());
 
-    mvc.perform(get("/api/languages"))
-      .andExpect(status().isNotFound());
+    mvc.perform(get("/api/languages")).andExpect(status().isNotFound());
   }
 }
