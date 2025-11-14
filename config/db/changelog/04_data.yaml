@@ -59,7 +59,7 @@ databaseChangeLog:
                   name: USE_CREATED
                   type: DATETIME
               - column:
-                  name: use_lastPasswordChange
+                  name: use_last_password_change
                   type: DATETIME
         - sql:
             sql: INSERT INTO STM_SEQUENCE(SEQ_NAME, SEQ_COUNT) VALUES ('USE_ID', 12);
